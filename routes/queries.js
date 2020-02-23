@@ -14,7 +14,7 @@ function getAllFacts(req, res, next) {
     db.any('select * from facts')
       .then(function (data) {
         res.status(200)
-          .json(data);
+          .json(data.reverse());
       })
       .catch(function (err) {
         return next(err)
@@ -33,7 +33,7 @@ function getSavedFacts(req, res, next) {
     db.any('select * from saved_facts left join facts on saved_facts.f_id = facts.id where saved_facts.u_id = $1', userId)
       .then(function (data) {
         res.status(200)
-          .json(data);
+          .json(data.reverse());
       })
       .catch(function (err) {
         return next(err);

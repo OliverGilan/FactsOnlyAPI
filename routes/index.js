@@ -55,9 +55,14 @@ router.get('/isSaved/', [
 
 
 /*
+    Check if specific user is an admin
+*/
+router.post('/isAdmin', auth.checkIfAdmin, function(req, res, err){res.status(200); res.send({r: true})})
+
+/*
     Makes specific user an admin
 */
-router.post('/makeAdmin', auth.makeUserAdmin)
+// router.post('/makeAdmin', auth.makeUserAdmin)
 
 
 /*

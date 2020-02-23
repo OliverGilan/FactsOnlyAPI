@@ -44,12 +44,12 @@ const checkIfAuthenticated = (req, res, next) => {
 const checkIfAdmin = (req, res, next) => {
   getAuthToken(req, res, async () => {
      try {
-       const { authToken } = req;
+	   const { authToken } = req;
        const userInfo = await admin
          .auth()
          .verifyIdToken(authToken);
- 
-       if (userInfo.admin === true) {
+
+       if (userInfo.admin) {
          req.authId = userInfo.uid;
          return next();
        }
@@ -64,9 +64,9 @@ const checkIfAdmin = (req, res, next) => {
  };
 
 const makeUserAdmin = async (req, res) => {
-  const {userId} = req.body; 
-
-  await admin.auth().setCustomUserClaims(userId, {admin: true});
+  const {uid} = req.headers; 
+    // if(uid === ""){throw new Error("empty uid")}
+  await admin.auth().setCustomUserClaims(uid, {admin: true});
 
   return res.send({message: 'Success'})
 }
