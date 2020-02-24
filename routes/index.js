@@ -22,7 +22,7 @@ router.get('/', db.getAllFacts);
 /*
     Gets user information in database based on uid
 */
-router.get('/user', [
+router.post('/user', [
     check('uid')
     .notEmpty().withMessage('must have uid')
     .trim()
@@ -33,7 +33,7 @@ router.get('/user', [
 /*
     Gets all saved facts in the database for user
 */
-router.get('/saved/', [
+router.post('/saved/', [
     check('uid')
     .notEmpty().withMessage('must have uid')
     .trim()
@@ -44,7 +44,7 @@ router.get('/saved/', [
 /*
     Checks if specific fact is saved for specific user
 */
-router.get('/isSaved/', [
+router.post('/isSaved/', [
     check('uid')
     .notEmpty().withMessage('must have uid')
     .trim()
