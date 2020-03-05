@@ -72,6 +72,17 @@ router.post('/', auth.checkIfAdmin, db.createFact)
 
 
 /*
+    Edits a fact in the database
+*/
+router.post('/editFact', auth.checkIfAdmin, db.editFact)
+
+/*
+    Deletes a fact from the database
+*/
+router.post('/deleteFact', auth.checkIfAdmin, db.deleteFact)
+
+
+/*
     Creates new user in database
 */
 router.post('/addUser', [

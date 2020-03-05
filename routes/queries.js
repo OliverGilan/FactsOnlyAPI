@@ -59,6 +59,32 @@ function createFact(req, res, next) {
     })
 }
 
+function editFact(req, res, next) {
+    var fact = req.body.fact
+    var body = fact.body
+    var headline = fact.headline
+    var date = fact.date
+    var id = fact.id
+    db.any('update facts set date=$1, headline=$2, fact=$3 where id=$4', [date, headline, body, id])
+        .then(function(data) {
+            res.status(200).json(data)
+        })
+        .catch(function (err) {
+            return next(err)
+        })
+}
+
+function deleteFact(req, res, next) {
+    var id = fact.id
+    db.any('delete from facts where id=$1', [id])
+        .then(function(data) {
+            res.status(200).json(data)
+        })
+        .catch(function (err) {
+            return next(err)
+        })
+}
+
 function createUser(req, res, next) {
   //Check validator
   const errors = validationResult(req);
@@ -184,4 +210,6 @@ module.exports = {
     getUser: getUser,
     saveFact: saveFact,
     unsaveFact: unsaveFact,
+    editFact: editFact,
+    deleteFact: deleteFact,
 };
