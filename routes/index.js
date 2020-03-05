@@ -33,7 +33,7 @@ router.post('/user', [
 /*
     Gets all saved facts in the database for user
 */
-router.post('/saved/', [
+router.post('/saved', [
     check('uid')
     .notEmpty().withMessage('must have uid')
     .trim()
@@ -44,9 +44,8 @@ router.post('/saved/', [
 /*
     Checks if specific fact is saved for specific user
 */
-router.post('/isSaved/', [
-    check('uid')
-    .notEmpty().withMessage('must have uid')
+router.post('/isSaved', [
+    check('uid', 'empty uid').not().isEmpty()
     .trim()
     .escape(),
     check('fid')
