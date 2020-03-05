@@ -30,7 +30,7 @@ function getSavedFacts(req, res, next) {
 
         var userId = req.body.uid
         console.log("Getting saved facts for: " + req.get('uid'))
-        db.any('select * from saved_facts left join facts on saved_facts.f_id = facts.fid where saved_facts.u_id = $1', userId)
+        db.any('select * from saved_facts left join facts on saved_facts.fid = facts.fid where saved_facts.uid = $1', userId)
         .then(function (data) {
             res.status(200)
             .json(data.reverse());
@@ -116,7 +116,7 @@ function reportFact(req, res, next) {
     var issue = req.body.issue
     var email = req.body.email
     console.log("Submitting report for fact: " + fid)
-    db.any('insert into reports(f_id, issue, u_email) values ($1, $2, $3)', [fid, issue, email])
+    db.any('insert into reports(fid, issue, email) values ($1, $2, $3)', [fid, issue, email])
         .then(function (data) {
         res.status(200).json(data)
         })
@@ -135,12 +135,12 @@ function checkSaved(req, res, next) {
     var uid = req.body.uid
     var fid = req.body.fid
     console.log("Checking if fact: " + fid + " is saved by: " + uid)
-    db.any('select exists(select * from saved_facts where saved_facts.u_id = $1 and saved_facts.f_id = $2)', [uid, fid])
+    db.any('select exists(select * from saved_facts where saved_facts.uid = $1 and saved_facts.fid = $2)', [uid, fid])
         .then((data) => {
-        res.status(200)
-        .json({
-            saved: data[0].exists
-        })
+            res.status(200)
+            .json({
+                saved: data[0].exists
+            })
         })
         .catch((err) => {
         return next(err)
@@ -176,7 +176,7 @@ function saveFact(req, res, next) {
     var fid = req.body.fid
     var uid = req.body.uid
     console.log("Saving Fact: " + fid + " for: " + uid)
-    db.any('insert into saved_facts(f_id, u_id) values($1, $2)', [fid, uid])
+    db.any('insert into saved_facts(fid, uid) values($1, $2)', [fid, uid])
         .then((data) => {
         res.status(200).json(data)
         })
@@ -193,7 +193,7 @@ function unsaveFact(req, res, next) {
     var fid = req.body.fid
     var uid = req.body.uid
     console.log("Unsaving Fact: " + fid + " for: " + uid)
-    db.any('delete from saved_facts where saved_facts.f_id = $1 and saved_facts.u_id = $2', [fid, uid])
+    db.any('delete from saved_facts where saved_facts.fid = $1 and saved_facts.uid = $2', [fid, uid])
         .then((data) => {
         res.status(200).json(data)
         })
