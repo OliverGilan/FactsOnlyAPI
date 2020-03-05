@@ -65,7 +65,7 @@ function editFact(req, res, next) {
     var headline = fact.headline
     var date = fact.date
     var id = fact.id
-    db.any('update facts set date=$1, headline=$2, fact=$3 where id=$4', [date, headline, body, id])
+    db.any('update facts set date=$1, headline=$2, fact=$3 where fid=$4', [date, headline, body, id])
         .then(function(data) {
             res.status(200).json(data)
         })
@@ -75,8 +75,8 @@ function editFact(req, res, next) {
 }
 
 function deleteFact(req, res, next) {
-    var id = fact.id
-    db.any('delete from facts where id=$1', [id])
+    var id = req.body.fact.id
+    db.any('delete from facts where fid=$1', [id])
         .then(function(data) {
             res.status(200).json(data)
         })
