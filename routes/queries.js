@@ -95,13 +95,13 @@ function createUser(req, res, next) {
     var id = req.body.uid
     var email = req.body.email
     var date = req.body.date
-    console.log("Creating user: " + id)
-    db.any('insert into users(id, email, date_joined) VALUES($1, $2, $3)', [id, email, date])
+    console.log("Creating user: " + id + email + date)
+    db.any('insert into users(uid, email, date_joined) VALUES($1, $2, $3)', [id, email, date])
         .then(function (data) {
-        res.status(200).json(data)
+            res.status(200).json(data)
         })
         .catch(function (err) {
-        return next(err)
+            return next(err)
         })
 }
 

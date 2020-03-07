@@ -85,14 +85,14 @@ router.post('/deleteFact', auth.checkIfAdmin, db.deleteFact)
     Creates new user in database
 */
 router.post('/addUser', [
-    check('uid')
-    .notEmpty().withMessage('must have uid')
+    check('uid', 'must have uid')
+    .not().isEmpty()
     .trim()
     .escape(),
     check('email')
     .normalizeEmail()
     .isEmail().withMessage('invalid email address'),
-    check('today').isISO8601().withMessage('invalid date format. Must be ISO8601 format')
+    check('today')
     .toDate()
 ],auth.checkIfAuthenticated, db.createUser)
 
