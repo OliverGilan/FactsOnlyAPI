@@ -11,8 +11,13 @@ const { validationResult } = require('express-validator')
 
 function getAllFacts(req, res, next) {
     console.log("getting facts");
-    db.any('select * from facts')
+    db.any('select * from facts order by date')
       .then(function (data) {
+        for(let o of data){
+            o.date = String(o.date).split('00:00:00')[0]
+            console.log(typeof(String(o.date)))
+        }
+        console.log(data)
         res.status(200)
           .json(data.reverse());
       })
@@ -45,7 +50,7 @@ function createFact(req, res, next) {
     var dd = String(date.getDate()).padStart(2, '0');
     var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
     var yyyy = date.getFullYear();
-    date = mm + '/' + dd + '/' + yyyy;
+    date = yyyy + "-" + mm + "-" + dd;
     
     var headline = req.body.headline
     var fact = req.body.fact
