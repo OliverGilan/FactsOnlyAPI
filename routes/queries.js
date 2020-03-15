@@ -14,10 +14,9 @@ function getAllFacts(req, res, next) {
     db.any('select * from facts order by date')
       .then(function (data) {
         for(let o of data){
-            o.date = String(o.date).split('00:00:00')[0]
-            console.log(typeof(String(o.date)))
+            var d = String(o.date).split('00:00:00')[0].split(" ")
+            o.date = d[0] + ', ' + d[1] + ' ' + d[2] + ', ' + d[3]
         }
-        console.log(data)
         res.status(200)
           .json(data.reverse());
       })
@@ -37,6 +36,10 @@ function getSavedFacts(req, res, next) {
         console.log("Getting saved facts for: " + req.get('uid'))
         db.any('select * from saved_facts left join facts on saved_facts.fid = facts.fid where saved_facts.uid = $1', userId)
         .then(function (data) {
+            for(let o of data){
+                var d = String(o.date).split('00:00:00')[0].split(" ")
+                o.date = d[0] + ', ' + d[1] + ' ' + d[2] + ', ' + d[3]
+            }
             res.status(200)
             .json(data.reverse());
         })
