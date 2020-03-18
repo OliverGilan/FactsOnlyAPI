@@ -1,6 +1,6 @@
 CREATE TABLE facts (
     fid SERIAL PRIMARY KEY,
-    date TEXT,
+    date DATE,
     headline TEXT,
     fact TEXT
 );
