@@ -25,6 +25,66 @@ function getAllFacts(req, res, next) {
       });
 }
 
+function getEconFacts(req, res, next) {
+    db.any('select * from facts where category = $1 order by date', ['Economy'])
+      .then(function (data) {
+        for(let o of data){
+            var d = String(o.date).split('00:00:00')[0].split(" ")
+            o.date = d[0] + ', ' + d[1] + ' ' + d[2] + ', ' + d[3]
+        }
+        res.status(200)
+          .json(data.reverse());
+      })
+      .catch(function (err) {
+        return next(err)
+      });
+}
+
+function getHealthFacts(req, res, next) {
+    db.any('select * from facts where category = $1 order by date', ['Health'])
+      .then(function (data) {
+        for(let o of data){
+            var d = String(o.date).split('00:00:00')[0].split(" ")
+            o.date = d[0] + ', ' + d[1] + ' ' + d[2] + ', ' + d[3]
+        }
+        res.status(200)
+          .json(data.reverse());
+      })
+      .catch(function (err) {
+        return next(err)
+      });
+}
+
+function getPoliticalFacts(req, res, next) {
+    db.any('select * from facts where category = $1 order by date', ['Politics'])
+      .then(function (data) {
+        for(let o of data){
+            var d = String(o.date).split('00:00:00')[0].split(" ")
+            o.date = d[0] + ', ' + d[1] + ' ' + d[2] + ', ' + d[3]
+        }
+        res.status(200)
+          .json(data.reverse());
+      })
+      .catch(function (err) {
+        return next(err)
+      });
+}
+
+function getSportsFacts(req, res, next) {
+    db.any('select * from facts where category = $1 order by date', ['Sports'])
+      .then(function (data) {
+        for(let o of data){
+            var d = String(o.date).split('00:00:00')[0].split(" ")
+            o.date = d[0] + ', ' + d[1] + ' ' + d[2] + ', ' + d[3]
+        }
+        res.status(200)
+          .json(data.reverse());
+      })
+      .catch(function (err) {
+        return next(err)
+      });
+}
+
 function getSavedFacts(req, res, next) {
     //Check validator
     const errors = validationResult(req);
@@ -47,6 +107,8 @@ function getSavedFacts(req, res, next) {
             return next(err);
         });
 }
+
+
 
 function createFact(req, res, next) {
     var date = new Date();
@@ -222,4 +284,8 @@ module.exports = {
     unsaveFact: unsaveFact,
     editFact: editFact,
     deleteFact: deleteFact,
+    getEconFacts: getEconFacts,
+    getHealthFacts: getHealthFacts,
+    getPoliticalFacts: getPoliticalFacts,
+    getSportsFacts: getSportsFacts,
 };

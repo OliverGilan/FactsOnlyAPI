@@ -18,6 +18,26 @@ router.get('/ping', (req, res) => {
 */
 router.get('/', db.getAllFacts);
 
+/*
+    Gets all economy facts in the database
+*/
+router.get('/economy', db.getEconFacts);
+
+/*
+    Gets all health facts in the database
+*/
+router.get('/health', db.getHealthFacts);
+
+/*
+    Gets all politics facts in the database
+*/
+router.get('/politics', db.getPoliticalFacts);
+
+/*
+    Gets all sports facts in the database
+*/
+router.get('/sports', db.getSportsFacts);
+
 
 /*
     Gets user information in database based on uid
