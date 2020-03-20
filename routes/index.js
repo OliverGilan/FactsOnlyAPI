@@ -26,7 +26,7 @@ router.get('/economy', db.getEconFacts);
 /*
     Gets all health facts in the database
 */
-router.get('/health', db.getHealthFacts);
+router.get('/world', db.getWorldFacts);
 
 /*
     Gets all politics facts in the database

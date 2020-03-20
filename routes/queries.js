@@ -40,8 +40,8 @@ function getEconFacts(req, res, next) {
       });
 }
 
-function getHealthFacts(req, res, next) {
-    db.any('select * from facts where category = $1 order by date', ['Health'])
+function getWorldFacts(req, res, next) {
+    db.any('select * from facts where category = $1 order by date', ['World'])
       .then(function (data) {
         for(let o of data){
             var d = String(o.date).split('00:00:00')[0].split(" ")
@@ -285,7 +285,7 @@ module.exports = {
     editFact: editFact,
     deleteFact: deleteFact,
     getEconFacts: getEconFacts,
-    getHealthFacts: getHealthFacts,
+    getWorldFacts: getWorldFacts,
     getPoliticalFacts: getPoliticalFacts,
     getSportsFacts: getSportsFacts,
 };
