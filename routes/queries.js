@@ -120,8 +120,9 @@ function createFact(req, res, next) {
     var headline = req.body.headline
     var fact = req.body.fact
     var category = req.body.category
+    var sources = req.body.sources
     console.log("Creating Fact: " + headline)
-    db.any('insert into facts(date, headline, fact, category) values ($1, $2, $3, $4)', [date, headline, fact, category])
+    db.any('insert into facts(date, headline, fact, category, sources) values ($1, $2, $3, $4, $5)', [date, headline, fact, category, sources])
         .then(function (data) {
         res.status(200).json(data)
         })
@@ -137,7 +138,9 @@ function editFact(req, res, next) {
     var category = fact.category
     var date = fact.date
     var id = fact.id
-    db.any('update facts set date=$1, headline=$2, fact=$3, category=$4 where fid=$5', [date, headline, body, category, id])
+    var source = fact.sources
+    console.log(source)
+    db.any('update facts set date=$1, headline=$2, fact=$3, category=$4, sources=$5 where fid=$6', [date, headline, body, category, source,id])
         .then(function(data) {
             res.status(200).json(data)
         })
