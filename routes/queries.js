@@ -71,7 +71,7 @@ function getPoliticalFacts(req, res, next) {
 }
 
 function getSportsFacts(req, res, next) {
-    db.any('select * from facts where category = $1 order by date', ['Sports'])
+    db.any('select * from facts where category = $1 order by date', ['Sports & Entertainment'])
       .then(function (data) {
         for(let o of data){
             var d = String(o.date).split('00:00:00')[0].split(" ")
