@@ -11,6 +11,8 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
+//Serve home page
+app.use('/home', express.static('public'))
 
 //Initialize port
 const port = process.env.PORT || 2400
