@@ -4,7 +4,7 @@
   "description": "The package for the facts only web service",
   "main": "app.js",
   "scripts": {
-    "start": "node ./main/app.js"
+    "start": "nodemon ./main/app.js"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,9 @@
     "express": "^4.17.1",
     "express-validator": "^6.3.1",
     "firebase-admin": "^8.9.2",
-    "pg-promise": "^10.3.5"
+    "pg": "^8.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }
